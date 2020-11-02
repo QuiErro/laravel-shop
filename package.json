@@ -23,5 +23,9 @@
         "vue": "^2.5.17",
         "vue-template-compiler": "^2.6.10"
     },
-    "name": "laravel-shop"
+    "name": "laravel-shop",
+    "dependencies": {
+        "china-area-data": "^5.0.1",
+        "sweetalert": "^2.1.2"
+    }
 }
