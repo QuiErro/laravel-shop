@@ -37,6 +37,41 @@ Route::group(['middleware' => ['auth', 'verified']], function() {
     Route::delete('products/{product}/favorite', 'ProductsController@disfavor')->name('products.disfavor');
 
     Route::get('products/favorites', 'ProductsController@favorites')->name('products.favorites');
+
+    Route::post('cart', 'CartController@add')->name('cart.add');
+
+    Route::get('cart', 'CartController@index')->name('cart.index');
+
+    Route::delete('cart/{sku}', 'CartController@remove')->name('cart.remove');
+
+    Route::post('orders', 'OrdersController@store')->name('orders.store');
+
+    Route::get('orders', 'OrdersController@index')->name('orders.index');
+
+    Route::get('orders/{order}', 'OrdersController@show')->name('orders.show');
+
+    Route::get('payment/{order}/alipay', 'PaymentController@payByAlipay')->name('payment.alipay');
+
+    Route::get('payment/alipay/return', 'PaymentController@alipayReturn')->name('payment.alipay.return');
+
+    Route::get('payment/{order}/wechat', 'PaymentController@payByWechat')->name('payment.wechat');
+
+    Route::post('orders/{order}/received', 'OrdersController@received')->name('orders.received');
+
+    Route::get('orders/{order}/review', 'OrdersController@review')->name('orders.review.show');
+
+    Route::post('orders/{order}/review', 'OrdersController@sendReview')->name('orders.review.store');
+
+    Route::post('orders/{order}/apply_refund', 'OrdersController@applyRefund')->name('orders.apply_refund');
+
+    Route::post('payment/wechat/refund_notify', 'PaymentController@wechatRefundNotify')->name('payment.wechat.refund_notify');
+
+    Route::get('coupon_codes/{code}', 'CouponCodesController@show')->name('coupon_codes.show');
 });
+
+// 服务器端回调的路由不能放到带有 auth 中间件的路由组中，因为支付宝的服务器请求不会带有认证信息
+Route::post('payment/alipay/notify', 'PaymentController@alipayNotify')->name('payment.alipay.notify');
+
+Route::post('payment/wechat/notify', 'PaymentController@wechatNotify')->name('payment.wechat.notify');
 
 Route::get('products/{product}', 'ProductsController@show')->name('products.show');

@@ -25,6 +25,7 @@
     },
     "name": "laravel-shop",
     "dependencies": {
+        "@fortawesome/fontawesome-free": "^5.15.1",
         "china-area-data": "^5.0.1",
         "sweetalert": "^2.1.2"
     }
